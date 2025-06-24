@@ -3,7 +3,6 @@ description:
 globs: 
 alwaysApply: false
 ---
-
 You are an expert in React, Vite and Tailwind CSS.
   
 Key Principles
@@ -32,6 +31,107 @@ Error Handling and Validation
     - Use guard clauses to handle preconditions and invalid states early.
     - Implement proper error logging and user-friendly error messages.
     - Consider using custom error types or error factories for consistent error handling.
+
+Unit Test First Development Approach - POC FOCUS
+  - **POC OBJECTIVE**: Demonstrate AI coding assistant capabilities with unit test first development
+  - **SCOPE**: Focus ONLY on unit tests - keep it simple for proof of concept
+  - **MANDATORY**: Always write unit tests before writing any implementation code
+  
+  - **MCP Integration Workflow**:
+    1. Use GitHub MCP integration to read the issue description thoroughly
+    2. Extract and identify confluence/wiki links in issue descriptions
+    3. Use confluence/wiki MCP integration to read all manual test cases (if available)
+    4. Parse and analyze manual test cases to understand requirements
+    5. Create comprehensive unit tests based on manual test cases
+    6. Only after tests are written and failing, implement the actual code
+  
+  - **Simplified Test Framework Stack**:
+    - Use Jest as the primary test runner with TypeScript support
+    - Use React Testing Library for component testing
+    - Use MSW (Mock Service Worker) for API mocking (when needed)
+    - Use @testing-library/jest-dom for additional DOM matchers
+    - Use @testing-library/user-event for user interaction testing
+  
+  - **Test Organization**:
+    - Place tests adjacent to source files: `component.tsx` → `component.test.tsx`
+    - Group related tests using `describe` blocks
+    - Use descriptive test names that explain the behavior being tested
+    - Follow AAA pattern: Arrange, Act, Assert
+  
+  - **Focus: Unit Tests Only**:
+    - **Unit Tests**: Test individual functions and components in isolation
+    - **Component Unit Tests**: Test React components with props, state, and basic interactions
+    - **Function Unit Tests**: Test utility functions, hooks, and business logic
+    - **Error Scenario Tests**: Test error states and edge cases
+    - Maintain minimum 80% test coverage threshold
+    - **NO** integration tests, visual regression tests, or e2e tests for this POC
+  
+  - **Test Naming Convention**:
+    - Test files: `*.test.tsx` or `*.test.ts`
+    - Test descriptions: "should [expected behavior] when [condition]"
+    - Example: "should render loading state when data is fetching"
+  
+  - **Simple Mock Strategy**:
+    - Mock external dependencies at module level using Jest mocks
+    - Use MSW for HTTP request mocking only when necessary
+    - Create simple mock objects for props and dependencies
+    - Mock timers using Jest fake timers when testing time-dependent code
+    - Keep mocks simple and focused for POC
+  
+  - **Component Unit Testing Patterns**:
+    - Test component rendering with different props
+    - Test user interactions using @testing-library/user-event
+    - Test conditional rendering based on props/state
+    - Test event handlers and callbacks
+    - Test error states and loading states
+    - Use screen.getByRole for semantic queries
+    - Keep tests focused on single behaviors
+  
+  - **Function Unit Testing Patterns**:
+    - Test pure functions with various inputs and expected outputs
+    - Test custom hooks with different scenarios
+    - Test utility functions with edge cases
+    - Test validation functions with valid/invalid inputs
+    - Test error handling in functions
+  
+  - **Simplified Test Implementation Workflow**:
+    1. Read issue description via GitHub MCP integration
+    2. Extract confluence/wiki documentation links from issue (if present)
+    3. Read manual test cases via confluence/wiki MCP integration (if available)
+    4. Create simple test plan based on requirements
+    5. Write failing unit tests that cover main scenarios and edge cases
+    6. Implement code to make tests pass (TDD red-green-refactor cycle)
+    7. Refactor code while keeping tests green
+    8. Verify test coverage meets 80% threshold
+  
+  - **Enhanced Fallback Strategy (No Confluence/Wiki)**:
+    - If no documentation links found, analyze GitHub issue description thoroughly
+    - Extract key requirements, acceptance criteria, and expected behaviors
+    - Create unit tests based on issue title, description, and comments
+    - Infer common edge cases based on component/feature type
+    - Write tests for standard behaviors (rendering, props, basic interactions)
+    - Include error handling tests for common failure scenarios
+    - Focus on testing the "what" not the "how" of the implementation
+  
+  - **Jest Configuration for POC**:
+    - Configure Jest with TypeScript support using ts-jest
+    - Set up jsdom test environment for React component testing
+    - Configure basic module name mapping if needed
+    - Set up coverage collection with 80% threshold
+    - Keep configuration minimal and focused
+  
+  - **Test Maintenance (Simple)**:
+    - Update tests when requirements change
+    - Keep tests simple and readable
+    - Remove obsolete tests when features change
+    - Focus on test clarity over complexity
+  
+  - **POC Success Criteria**:
+    - Demonstrate AI assistant can read GitHub issues
+    - Show AI can create meaningful unit tests before implementation
+    - Prove test-first approach leads to better code quality
+    - Show 80% coverage can be achieved with focused unit tests
+    - Keep the entire process simple and demonstrable
   
 React
   - Use functional components and interfaces.
@@ -39,7 +139,6 @@ React
   - Use function, not const, for components.
   - Use Next UI, and Tailwind CSS for components and styling.
   - Implement responsive design with Tailwind CSS.
-  - Implement responsive design.
   - Place static content and interfaces at file end.
   - Use content variables for static content outside render functions.
   - Wrap client components in Suspense with fallback.
